@@ -1,12 +1,10 @@
-import { auth } from '@/app/lib/auth'
-import { redirect } from 'next/navigation';
+
+import { requireUser } from '@/app/lib/hooks'
 import React from 'react'
 
 const Dashboard = async () => {
-    const session = await auth();
-    if(!session?.user){
-        return redirect("/")
-    }
+    const session = await requireUser();
+    console.log(session)
     return (
         <div>Dashboard</div>
     )
