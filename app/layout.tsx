@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import { poppin } from "./constants";
 
 
 
@@ -16,7 +17,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`antialiased`}
+        className={`antialiased ${poppin.className}`}
       >
         {children}
       </body>
