@@ -6,6 +6,7 @@ import { Button } from '../ui';
 import Image from 'next/image';
 import { signIn } from 'next-auth/react';
 import { Loader2 } from 'lucide-react';
+import { useRouter } from 'next/navigation';
 
 interface SubmitButtonProps {
   provider: string;
@@ -15,9 +16,11 @@ interface SubmitButtonProps {
 
 const SubmitButton: React.FC<SubmitButtonProps> = ({ provider, logo, text }) => {
   const { pending } = useFormStatus();
+  const router = useRouter();
 
   const handleSignIn = async () => {
     await signIn(provider);
+    router.push("/Dashboard");
   };
 
   return (
