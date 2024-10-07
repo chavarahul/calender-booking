@@ -2,6 +2,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import Logo from '@/public/logo.png'
 import AuthModal from '../auth/AuthModal'
+import { ThemeToggle } from '../ui'
 
 const Navbar = () => {
     return (
@@ -10,7 +11,13 @@ const Navbar = () => {
                 <Image src={Logo} alt='Logo' className='size-8' />
                 <h4 className='text-2xl font-semibold'>Calen<span className='text-blue-500'>Nexus</span></h4>
             </Link>
-            <AuthModal/>
+            <div className="md:hidden">
+                <ThemeToggle />
+            </div>
+            <nav className="hidden md:flex md:justify-end md:space-x-4">
+                <ThemeToggle />
+                <AuthModal />
+            </nav>
         </header>
     )
 }

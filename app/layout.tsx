@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { poppin } from "./constants";
+import { ThemeProvider } from "./components/ui";
 
 
 
@@ -19,7 +20,14 @@ export default function RootLayout({
       <body
         className={`antialiased ${poppin.className}`}
       >
-        {children}
+         <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            {children}
+          </ThemeProvider>
       </body>
     </html>
   );
