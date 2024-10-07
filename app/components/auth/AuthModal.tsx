@@ -6,6 +6,7 @@ import Logo from '@/public/logo.png'
 import GoogleLogo from '@/public/google.svg'
 import GithubLogo from '@/public/github.svg'
 import SubmitButton from './SubmitButton'
+import { signIn } from '@/app/lib/auth'
 
 const AuthModal = () => {
     return (
@@ -21,8 +22,18 @@ const AuthModal = () => {
                     </h4>
                 </DialogHeader>
                 <div className="flex flex-col mt-5 gap-3">
-                    <SubmitButton provider="google" logo={GoogleLogo} text="Sign in with Google" />
-                    <SubmitButton provider="github" logo={GithubLogo} text="Sign in with Github" />
+                    <form action={async()=>{
+                         "use server"
+                        await signIn("google")
+                    }}>
+                    <SubmitButton logo={GoogleLogo} text="Sign in with Google" />
+                    </form>
+                    <form action={async()=>{
+                        "use server"
+                        await signIn("github")
+                    }}>
+                    <SubmitButton logo={GithubLogo} text="Sign in with Github" />
+                    </form>
                 </div>
             </DialogContent>
         </Dialog>
