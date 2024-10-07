@@ -7,14 +7,15 @@ import { SheetContent, SheetTrigger } from '@/app/components/ui/sheet'
 import { Button, DropdownMenu, Sheet, ThemeToggle } from '@/app/components/ui'
 import { Menu } from 'lucide-react'
 import { DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from '@/app/components/ui/dropdown-menu'
-import { auth } from '@/app/lib/auth'
+import {  signOut } from '@/app/lib/auth'
+import { requireUser } from '@/app/lib/hooks'
 
 interface ReactChildren {
     children: ReactNode
 }
 
 const Layout: React.FC<ReactChildren> = async({ children }) => {
-    const session = await auth();
+    const session = await requireUser();
     return (
         <div className='min-h-screen w-full relative grid md:grid-cols-[220px_1fr] lg:grid-cols-[280px_1fr]'>
             <div className="hidden md:block border-r bg-muted/40">
@@ -63,11 +64,22 @@ const Layout: React.FC<ReactChildren> = async({ children }) => {
                             <DropdownMenuContent align='end'>
                               <DropdownMenuLabel>My Account</DropdownMenuLabel>
                               <DropdownMenuSeparator/>
-                              <DropdownMenuItem>Settings</DropdownMenuItem>
+                              <DropdownMenuItem asChild><Link href={"/Dashboard/settings"}>Settings</Link></DropdownMenuItem>
+                               <DropdownMenuItem asChild>
+                                <form action={async()=> {
+                                    "use server";
+                                    await signOut();
+                                }} className='w-full'>
+                                    <button className='w-full text-left'>Log out</button>
+                                    </form>
+                               </DropdownMenuItem>
                             </DropdownMenuContent>
                         </DropdownMenu>
                     </div>
                 </header>
+                <main className='flex flex-1 flex-col gap-4 p-4 lg:gap-6 lg:p-6'>
+                    {children}
+                </main>
             </div>
         </div>
     )
