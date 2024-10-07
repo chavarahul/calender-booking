@@ -1,7 +1,7 @@
 import { redirect } from "next/navigation";
 import { Navbar } from "../components/common";
 import { auth } from "../lib/auth";
-import { Companies, Features, Hero } from "../components/landing-components";
+import { Companies, Cta, Features, Hero, Testimonial } from "../components/landing-components";
 
 export default async function Home() {
   const session = await auth();
@@ -14,6 +14,8 @@ export default async function Home() {
       <Hero />
       <Companies />
       <Features/>
+      <Testimonial/>
+      <Cta/>
     </div>
   );
 }
