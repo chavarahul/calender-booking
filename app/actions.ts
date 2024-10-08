@@ -32,7 +32,48 @@ export const onBoardingAction = async (prevState, formData: FormData) => {
         },
         data: {
             userName: submission.value.userName as string,
-            name: submission.value.fullName
+            name: submission.value.fullName,
+            availability: {
+                createMany: {
+                    data: [
+                        {
+                            day: "Monday",
+                            fromTime: "08:00",
+                            tillTime: "18:00",
+                        },
+                        {
+                            day: "Tuesday",
+                            fromTime: "08:00",
+                            tillTime: "18:00",
+                        },
+                        {
+                            day: "Wednesday",
+                            fromTime: "08:00",
+                            tillTime: "18:00",
+                        },
+                        {
+                            day: "Thursday",
+                            fromTime: "08:00",
+                            tillTime: "18:00",
+                        },
+                        {
+                            day: "Friday",
+                            fromTime: "08:00",
+                            tillTime: "18:00",
+                        },
+                        {
+                            day: "Saturday",
+                            fromTime: "08:00",
+                            tillTime: "18:00",
+                        },
+                        {
+                            day: "Sunday",
+                            fromTime: "08:00",
+                            tillTime: "18:00",
+                        },
+                    ],
+                }
+            }
         }
     });
 
@@ -54,11 +95,11 @@ export const settingsAction = async (prevState, formData: FormData) => {
         },
         data: {
             name: submission.value.fullName,
-            image: submission.value.profileImage
+            image: submission.value.profileImage,
         }
     });
 
     console.log(user)
+    return redirect("/Dashboard");
 
-    return ("/Dashboard")
 }

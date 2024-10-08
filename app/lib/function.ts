@@ -27,8 +27,22 @@ export const getProfileData = async (id: string) => {
         select: {
             name: true,
             email: true,
-            image: true
+            image: true,
         }
+    });
+
+    if (!data) {
+        return notFound();
+    }
+
+    return data;
+}
+
+export const getAvailability = async (userId: string) => {
+    const data = await prisma.availability.findMany({
+        where: {
+            userId: userId
+        },
     });
 
     if (!data) {

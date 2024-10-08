@@ -10,6 +10,7 @@ import { parseWithZod } from '@conform-to/zod'
 import { settingsSchema } from '@/lib/zodSchema'
 import { X } from 'lucide-react'
 import { UploadDropzone } from '@/app/lib/uploadthing'
+import { toast } from 'sonner'
 
 interface UserProps {
     fullName: string;
@@ -21,7 +22,7 @@ const SettingsForm: React.FC<UserProps> = ({
     email,
     fullName,
     profileImage
-}) => {
+}: UserProps) => {
     const [lastResult, action] = useFormState(settingsAction, undefined);
     const [form, fields] = useForm({
         onValidate({ formData }) {
@@ -61,6 +62,12 @@ const SettingsForm: React.FC<UserProps> = ({
                     </div>
                     <div className="grid gap-y-5">
                         <Label>Profile Image</Label>
+                        <input
+                            type="hidden"
+                            name={fields.profileImage.name}
+                            key={fields.profileImage.key}
+                            value={currentProfileImage}
+                        />
                         {
                             currentProfileImage ? (
                                 <div className="relative size-16">
@@ -74,23 +81,26 @@ const SettingsForm: React.FC<UserProps> = ({
                                         size={"icon"}
                                         onClick={handleDeleteImage}
                                         type='button'
-                                        className='absolute -top-3 -right-3'
+                                        className='absolute size-7 rounded-full -top-3 -right-3'
                                     >
                                         <X className='size-4' />
                                     </Button>
                                 </div>
                             ) : (
                                 <UploadDropzone
-                                    onClientUploadComplete={(res)=>{
+                                    onClientUploadComplete={(res) => {
                                         setCurrentImageProfile(res[0].url);
+                                        toast.success("Profile image has been uploaded")
                                     }}
-                                    onUploadError={(error)=>{
-                                        console.log('error',error)
+                                    onUploadError={(error) => {
+                                        console.log('error', error);
+                                        toast.error(error.message);
                                     }}
                                     endpoint="imageUploader"
                                 />
                             )
                         }
+                        <p className='text-red-500 text-sm'>{fields.profileImage.errors}</p>
                     </div>
                 </CardContent>
                 <CardFooter>

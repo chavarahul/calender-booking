@@ -5,7 +5,8 @@ import React, { ReactNode } from 'react'
 import Links from '@/app/components/dashboard-components/Links'
 import { SheetContent, SheetTrigger } from '@/app/components/ui/sheet'
 import { Button, DropdownMenu, Sheet, ThemeToggle } from '@/app/components/ui'
-import { Menu } from 'lucide-react'
+import { Menu } from 'lucide-react';
+import { Toaster } from "@/app/components/ui/sonner"
 import { DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from '@/app/components/ui/dropdown-menu'
 import { signOut } from '@/app/lib/auth'
 import { requireUser } from '@/app/lib/hooks'
@@ -84,6 +85,7 @@ const Layout: React.FC<ReactChildren> = async ({ children }) => {
                     {children}
                 </main>
             </div>
+            <Toaster richColors closeButton />
         </div>
     )
 }
