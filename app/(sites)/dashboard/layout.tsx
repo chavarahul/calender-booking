@@ -9,29 +9,10 @@ import { Menu } from 'lucide-react'
 import { DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from '@/app/components/ui/dropdown-menu'
 import { signOut } from '@/app/lib/auth'
 import { requireUser } from '@/app/lib/hooks'
-import prisma from '@/app/lib/db'
-import { redirect } from 'next/navigation'
+import { getData } from '@/app/lib/function'
 
 interface ReactChildren {
     children: ReactNode
-}
-
-const getData = async (userId: string) => {
-    const data = await prisma.user.findUnique({
-        where: {
-            id: userId
-        },
-        select:{
-            userName:true,
-            grantId:true
-        },
-    });
-    if(!data?.userName){
-        return redirect('/onboarding')
-    }
-    if(!data?.grantId){
-        return redirect("/onboarding/grant-id")
-    }
 }
 
 const Layout: React.FC<ReactChildren> = async ({ children }) => {

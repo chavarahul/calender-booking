@@ -2,8 +2,9 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { poppin } from "./constants";
 import { ThemeProvider } from "./components/ui";
-
-
+import { NextSSRPlugin } from "@uploadthing/react/next-ssr-plugin";
+import { extractRouterConfig } from "uploadthing/server";
+import { ourFileRouter } from "./api/uploadthing/core";
 
 export const metadata: Metadata = {
   title: "Calender",
@@ -20,14 +21,17 @@ export default function RootLayout({
       <body
         className={`antialiased ${poppin.className}`}
       >
-         <ThemeProvider
-            attribute="class"
-            defaultTheme="system"
-            enableSystem
-            disableTransitionOnChange
-          >
-            {children}
-          </ThemeProvider>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <NextSSRPlugin
+            routerConfig={extractRouterConfig(ourFileRouter)}
+          />
+          {children}
+        </ThemeProvider>
       </body>
     </html>
   );
