@@ -9,6 +9,8 @@ import { Input } from "./input";
 import { Label } from "./label";
 import { Select } from "./select";
 import { Switch } from "./switch";
+import { Textarea } from "./textarea";
+import ButtonGroup from "./buttongroup";
 
 export {
     Dialog,
@@ -17,9 +19,11 @@ export {
     Sheet,
     ThemeProvider,
     ThemeToggle,
+    ButtonGroup,
     Card,
     Label,
     Input,
     Switch,
-    Select
+    Select,
+    Textarea
 }
