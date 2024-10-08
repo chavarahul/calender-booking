@@ -7,6 +7,8 @@ import { ThemeToggle } from "./ThemeToggle";
 import { Card } from "./card";
 import { Input } from "./input";
 import { Label } from "./label";
+import { Select } from "./select";
+import { Switch } from "./switch";
 
 export {
     Dialog,
@@ -17,5 +19,7 @@ export {
     ThemeToggle,
     Card,
     Label,
-    Input
+    Input,
+    Switch,
+    Select
 }

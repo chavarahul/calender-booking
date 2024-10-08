@@ -51,3 +51,27 @@ export const getAvailability = async (userId: string) => {
 
     return data;
 }
+
+export const getEventData = async (userId: string) => {
+    const data = await prisma.user.findUnique({
+        where: {
+            id: userId
+        },
+        select: {
+            userName: true,
+            eventType: {
+                select: {
+                    id: true,
+                    active: true,
+                    title: true,
+                    url: true,
+                    duration: true
+                },
+            },
+        },
+    });
+    if (!data) {
+        return notFound();
+    }
+    return data;
+}

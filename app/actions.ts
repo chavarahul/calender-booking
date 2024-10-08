@@ -5,6 +5,7 @@ import prisma from "./lib/db";
 import { requireUser } from "./lib/hooks";
 import { parseWithZod } from '@conform-to/zod'
 import { redirect } from "next/navigation";
+import { revalidatePath } from "next/cache";
 export const onBoardingAction = async (prevState, formData: FormData) => {
     const session = await requireUser();
 
@@ -101,5 +102,42 @@ export const settingsAction = async (prevState, formData: FormData) => {
 
     console.log(user)
     return redirect("/Dashboard");
+}
+
+export const updateAvailability = async (formdata: FormData) => {
+    await requireUser();
+    const rawData = Object.fromEntries(formdata.entries());
+    console.log(rawData, "   ");
+    const availabilityData = Object.keys(rawData).filter((key) =>
+        key.startsWith("id-")
+    ).map((key) => {
+        const id = key.replace("id-", "");
+        return {
+            id,
+            isActive: rawData[`isActive-${id}`] === "on",
+            fromTime: rawData[`fromTime-${id}`] as string,
+            tillTime: rawData[`tillTime-${id}`] as string
+        }
+    });
+
+    try {
+        await prisma.$transaction(
+            availabilityData.map((item) => prisma.availability.update({
+                where: {
+                    id: item.id
+                },
+                data: {
+                    isActive: item.isActive,
+                    fromTime: item.fromTime,
+                    tillTime: item.tillTime
+                }
+            }))
+        )
+
+        revalidatePath("/Dashboard/availability")
+
+    } catch (error) {
+        console.log(error);
+    }
 
 }

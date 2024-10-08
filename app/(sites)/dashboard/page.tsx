@@ -1,15 +1,25 @@
-
-import Btn from '@/app/components/auth/Btn';
+import EmptyState from '@/app/components/dashboard-components/EmptyState';
+import { getEventData } from '@/app/lib/function';
 import { requireUser } from '@/app/lib/hooks'
 import React from 'react'
 
 const Dashboard = async () => {
     const session = await requireUser();
-    console.log(session)
+    const data = await getEventData(session.user?.id as string);
     return (
-        <div>Dashboard
-            <Btn/>
-        </div>
+        <>
+            {
+                data.eventType.length === 0 ? (
+                    <EmptyState
+                        title='You have no Event Types'
+                        description='You can create your first event type by clicking the button below'
+                        buttontext='Add event type'
+                        href='/Dashboard/new'
+                    />
+                ) : (
+                    <div className=""></div >
+                )}
+        </>
     )
 }
 
