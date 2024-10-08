@@ -61,7 +61,7 @@ const NewEvent = () => {
                                     key={fields.url.key}
                                 />
                             </div>
-                                <p className='text-red-500 text-sm'>{fields.url.errors}</p>
+                            <p className='text-red-500 text-sm'>{fields.url.errors}</p>
                         </div>
                         <div className="flex mt-4 flex-col gap-y-2">
                             <Label>Description</Label>
@@ -100,8 +100,7 @@ const NewEvent = () => {
                             <input
                                 type="hidden"
                                 name={fields.videoCallSoftware.name}
-                                defaultValue={fields.videoCallSoftware.initialValue}
-                                key={fields.videoCallSoftware.key}
+                                value={activePlatform}
                             />
                             <ButtonGroup>
                                 <Button
