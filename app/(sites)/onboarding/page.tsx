@@ -1,12 +1,13 @@
 'use client';
 import { onBoardingAction } from '@/app/actions'
-import { Button, Card, Input, Label } from '@/app/components/ui'
+import { Card, Input, Label } from '@/app/components/ui'
 import { CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/app/components/ui/card'
 import React from 'react'
 import { useForm } from '@conform-to/react'
 import { useFormState } from 'react-dom'
 import { parseWithZod } from '@conform-to/zod'
 import { onBoardingSchema } from '@/lib/zodSchema'
+import SubmitButton from '@/app/components/auth/SubmitButton';
 
 const OnBoarding = () => {
     const [lastResult, action] = useFormState(onBoardingAction, undefined);
@@ -42,7 +43,7 @@ const OnBoarding = () => {
                             <Label>Username</Label>
                             <div className="flex rounded-md">
                                 <span className='inline-flex mt-2 items-center px-3 rounded-l-md border border-r-0 border-muted bg-muted text-sm text-muted-foreground'>
-                                    CalenNexus.com
+                                    CalenNexus.com/
                                 </span>
                                 <Input
                                     placeholder='example-user-1'
@@ -52,11 +53,11 @@ const OnBoarding = () => {
                                     key={fields.userName.key}
                                 />
                             </div>
-                                <p className='text-red-500 text-sm'>{fields.userName.errors}</p>
+                            <p className='text-red-500 text-sm'>{fields.userName.errors}</p>
                         </div>
                     </CardContent>
                     <CardFooter>
-                        <Button className='w-full'>Submit</Button>
+                    <SubmitButton variant={"default"} text='Submit' />
                     </CardFooter>
                 </form>
             </Card>

@@ -1,17 +1,28 @@
 "use server";
 
-import { onBoardingSchema } from "@/lib/zodSchema";
+import { onboardingSchemaValidation } from "@/lib/zodSchema";
 import prisma from "./lib/db";
 import { requireUser } from "./lib/hooks";
 import { parseWithZod } from '@conform-to/zod'
-export const onBoardingAction = async (prevState,formData: FormData) => {
+import { redirect } from "next/navigation";
+export const onBoardingAction = async (prevState, formData: FormData) => {
     const session = await requireUser();
 
-    const submission = parseWithZod(formData, {
-        schema: onBoardingSchema,
+    const submission = await parseWithZod(formData, {
+        schema: onboardingSchemaValidation({
+            async isUsernameUnique() {
+                const existingUsername = await prisma.user.findUnique({
+                    where: {
+                        userName: formData.get('userName') as string
+                    }
+                })
+                return !existingUsername
+            }
+        }),
+        async: true,
     });
- 
-    if(submission.status !== 'success'){
+
+    if (submission.status !== 'success') {
         return submission.reply();
     }
 
@@ -20,9 +31,11 @@ export const onBoardingAction = async (prevState,formData: FormData) => {
             id: session?.user?.id,
         },
         data: {
-            userName: submission.value.userName,
+            userName: submission.value.userName as string,
             name: submission.value.fullName
         }
     });
-    // return data
+
+    console.log(data)
+    return redirect('/Dashboard')
 }

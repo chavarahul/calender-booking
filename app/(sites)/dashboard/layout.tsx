@@ -7,15 +7,33 @@ import { SheetContent, SheetTrigger } from '@/app/components/ui/sheet'
 import { Button, DropdownMenu, Sheet, ThemeToggle } from '@/app/components/ui'
 import { Menu } from 'lucide-react'
 import { DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from '@/app/components/ui/dropdown-menu'
-import {  signOut } from '@/app/lib/auth'
+import { signOut } from '@/app/lib/auth'
 import { requireUser } from '@/app/lib/hooks'
+import prisma from '@/app/lib/db'
+import { redirect } from 'next/navigation'
 
 interface ReactChildren {
     children: ReactNode
 }
 
-const Layout: React.FC<ReactChildren> = async({ children }) => {
+const getData = async (userId: string) => {
+    const data = await prisma.user.findUnique({
+        where: {
+            id: userId
+        },
+        select:{
+            userName:true
+        },
+    });
+    if(!data?.userName){
+        return redirect('/onboarding')
+    }
+}
+
+const Layout: React.FC<ReactChildren> = async ({ children }) => {
     const session = await requireUser();
+    const data = await getData(session.user?.id as string);
+    console.log(data)
     return (
         <div className='min-h-screen w-full relative grid md:grid-cols-[220px_1fr] lg:grid-cols-[280px_1fr]'>
             <div className="hidden md:block border-r bg-muted/40">
@@ -54,25 +72,25 @@ const Layout: React.FC<ReactChildren> = async({ children }) => {
                         </SheetContent>
                     </Sheet>
                     <div className="ml-auto flex items-center gap-x-4">
-                        <ThemeToggle/>
+                        <ThemeToggle />
                         <DropdownMenu>
                             <DropdownMenuTrigger asChild>
                                 <Button variant={"secondary"} size={"icon"} className='rounded-full size-[2.2rem]'>
-                                    <img src={session?.user?.image as string} alt='profile-image' width={15} height={15} className='w-full h-full rounded-full' />  
+                                    <img src={session?.user?.image as string} alt='profile-image' width={15} height={15} className='w-full h-full rounded-full' />
                                 </Button>
                             </DropdownMenuTrigger>
                             <DropdownMenuContent align='end'>
-                              <DropdownMenuLabel>My Account</DropdownMenuLabel>
-                              <DropdownMenuSeparator/>
-                              <DropdownMenuItem asChild><Link href={"/Dashboard/settings"}>Settings</Link></DropdownMenuItem>
-                               <DropdownMenuItem asChild>
-                                <form action={async()=> {
-                                    "use server";
-                                    await signOut();
-                                }} className='w-full'>
-                                    <button className='w-full text-left'>Log out</button>
+                                <DropdownMenuLabel>My Account</DropdownMenuLabel>
+                                <DropdownMenuSeparator />
+                                <DropdownMenuItem asChild><Link href={"/Dashboard/settings"}>Settings</Link></DropdownMenuItem>
+                                <DropdownMenuItem asChild>
+                                    <form action={async () => {
+                                        "use server";
+                                        await signOut();
+                                    }} className='w-full'>
+                                        <button className='w-full text-left'>Log out</button>
                                     </form>
-                               </DropdownMenuItem>
+                                </DropdownMenuItem>
                             </DropdownMenuContent>
                         </DropdownMenu>
                     </div>
