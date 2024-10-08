@@ -37,5 +37,5 @@ export const onBoardingAction = async (prevState, formData: FormData) => {
     });
 
     console.log(data)
-    return redirect('/Dashboard')
+    return redirect('/onboarding/grant-id')
 }
