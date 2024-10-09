@@ -1,28 +1,29 @@
-import React, { useRef } from 'react';
-import { AriaButtonProps, useButton } from '@react-aria/button';
-import { CalendarState } from '@react-stately/calendar'
-import { Button } from '../../ui';
-import { mergeProps } from '@react-aria/utils';
-import { useFocusRing } from '@react-aria/focus'
+'use client'
+import { Button } from "@/app/components/ui/button";
+import { type AriaButtonProps, useButton } from "@react-aria/button";
+import { useFocusRing } from "@react-aria/focus";
+import { mergeProps } from "@react-aria/utils";
+import type { CalendarState } from "@react-stately/calendar";
+import { useRef } from "react";
 
-const CalenderButton = (props: AriaButtonProps<"button"> & {
+export function CalendarButton(
+  props: AriaButtonProps<"button"> & {
     state?: CalendarState;
     side?: "left" | "right";
-}) => {
-    const ref = useRef(null);
-    const { buttonProps } = useButton(props, ref);
-    const { focusProps } = useFocusRing();
-    return (
-        <Button
-            variant={"outline"}
-            size={"icon"}
-            ref={ref}
-            disabled={props.isDisabled}
-            {...mergeProps(buttonProps, focusProps)}
-        >
-            {props.children}
-        </Button>
-    )
+  }
+) {
+  const ref = useRef<HTMLButtonElement>(null);
+  const { buttonProps } = useButton(props, ref);
+  const { focusProps, isFocusVisible } = useFocusRing();
+  return (
+    <Button
+      {...mergeProps(buttonProps, focusProps)}
+      ref={ref}
+      disabled={props.isDisabled}
+      variant="outline"
+      size="icon"
+    >
+      {props.children}
+    </Button>
+  );
 }
-
-export default CalenderButton

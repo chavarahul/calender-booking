@@ -4,12 +4,21 @@ import { CardContent } from '@/app/components/ui/card'
 import { getUserBookingData } from '@/app/lib/function'
 import { requireUser } from '@/app/lib/hooks'
 import { CalendarX2, Clock, VideoIcon } from 'lucide-react'
-import BookingCalenderForm from '@/app/components/dashboard-components/BookingForm'
+import { RenderCalendar } from '@/app/components/dashboard-components/bookingform-components'
 
-const BookingForm = async ({ params }: {
-    params: { username: string; eventUrl: string }
+const BookingForm = async ({ params, searchParams }: {
+    params: { username: string; eventUrl: string };
+    searchParams: { date?: string }
 }) => {
+
     const data = await getUserBookingData(params.eventUrl, params.username);
+    const selectedDate =  searchParams.date ? new Date(searchParams.date) : new Date();
+    const formatedDate =  new Intl.DateTimeFormat("en-Us",{
+        weekday:'long',
+        day:'numeric',
+        month:'long'
+    }).format(selectedDate);
+
     return (
         <section className="min-h-screen w-screen flex items-center justify-center">
             <Card className='max-w-[1000px] w-full mx-auto'>
@@ -28,7 +37,7 @@ const BookingForm = async ({ params }: {
                         <div className="mt-5 flex flex-col gap-y-3">
                             <p className="flex items-center">
                                 <CalendarX2 className='size-4 mr-3 text-primary' />
-                                <span className='text-sm font-medium text-muted-foreground'>23, Sept 2024</span>
+                                <span className='text-sm font-medium text-muted-foreground'>{formatedDate}</span>
                             </p>
                             <p className="flex items-center">
                                 <Clock className='size-4 mr-3 text-primary' />
@@ -41,7 +50,7 @@ const BookingForm = async ({ params }: {
                         </div>
                     </div>
                     <Separator orientation='vertical' className='h-full w-[1px]' />
-                    <BookingCalenderForm />
+                    <RenderCalendar availability={data.User?.availability as any} />
                 </CardContent>
             </Card>
         </section>

@@ -1,3 +1,4 @@
+'use client'
 import React from 'react';
 import { type CalendarState } from 'react-stately';
 import { FocusableElement, DOMAttributes } from '@react-types/shared';
@@ -5,7 +6,7 @@ import { type AriaButtonProps } from '@react-aria/button';
 import { useDateFormatter } from '@react-aria/i18n';
 import { VisuallyHidden } from '@react-aria/visually-hidden';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
-import CalenderButton from './CalenderButton';
+import { CalendarButton} from './CalenderButton';
 
 interface BookingCalenderProps {
     state: CalendarState;
@@ -38,12 +39,12 @@ const CalenderHeader: React.FC<BookingCalenderProps> = ({
                 {monthName}{" "} <span className='text-muted-foreground text-sm font-medium'>{year}</span>
             </h2>
             <div className="flex items-center gap-2">
-                <CalenderButton {...prevButtonProps}>
+                <CalendarButton {...prevButtonProps}>
                     <ChevronLeft className='size-4' />
-                </CalenderButton>
-                <CalenderButton {...nextButtonProps}>
+                </CalendarButton>
+                <CalendarButton {...nextButtonProps}>
                     <ChevronRight className='size-4' />
-                </CalenderButton>
+                </CalendarButton>
             </div>
         </section>
     )
