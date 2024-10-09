@@ -75,3 +75,39 @@ export const getEventData = async (userId: string) => {
     }
     return data;
 }
+
+export const getUserBookingData = async (eventUrl: string, userName: string) => {
+    const data = await prisma.eventType.findFirst({
+        where: {
+            url: eventUrl,
+            User: {
+                userName: userName,
+            },
+            active: true
+        },
+        select: {
+            id: true,
+            title: true,
+            description: true,
+            duration: true,
+            videoCallsSoftware: true,
+            User: {
+                select: {
+                    image: true,
+                    name: true,
+                    availability: {
+                        select: {
+                            day: true,
+                            isActive: true
+                        },
+                    },
+                },
+            },
+        },
+    });
+
+    if (!data) {
+        return notFound();
+    }
+    return data;
+};

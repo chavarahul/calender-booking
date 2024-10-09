@@ -11,6 +11,7 @@ import { Select } from "./select";
 import { Switch } from "./switch";
 import { Textarea } from "./textarea";
 import ButtonGroup from "./buttongroup";
+import { Separator } from "./separator";
 
 export {
     Dialog,
@@ -25,5 +26,6 @@ export {
     Input,
     Switch,
     Select,
-    Textarea
+    Textarea,
+    Separator
 }
