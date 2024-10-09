@@ -39,7 +39,7 @@ const Meetings = async () => {
           title="No meetings found"
           description="You don't have any meetings yet"
           buttontext="Create a new event type"
-          href="/Dashboard/new"
+          href="/dashboard/new"
         />
       ) : (
         <Card>

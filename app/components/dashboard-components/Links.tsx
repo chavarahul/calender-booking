@@ -16,25 +16,25 @@ export const dashboardLinks: LinksProps[] = [
     {
         id: 0,
         name: "Event Types",
-        href: "/Dashboard",
+        href: "/dashboard",
         icon: HomeIcon,
     },
     {
         id: 1,
         name: "Meetings",
-        href: "/Dashboard/meetings",
+        href: "/dashboard/meetings",
         icon: Users2,
     },
     {
         id: 2,
         name: "Availablity",
-        href: "/Dashboard/availability",
+        href: "/dashboard/availability",
         icon: CalendarCheck,
     },
     {
         id: 3,
         name: "Settings",
-        href: "/Dashboard/settings",
+        href: "/dashboard/settings",
         icon: Settings,
     },
 ];

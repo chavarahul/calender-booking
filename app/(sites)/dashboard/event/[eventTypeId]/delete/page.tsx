@@ -22,7 +22,7 @@ const DeleteEventType = ({ params }: { params: { eventTypeId: string } }) => {
         </CardHeader>
         <CardFooter className="w-full flex justify-between">
           <Button asChild variant="secondary">
-            <Link href="/Dashboard">Cancel</Link>
+            <Link href="/dashboard">Cancel</Link>
           </Button>
           <form action={DeleteEventTypeAction}>
             <input type="hidden" name="id" value={params.eventTypeId} />

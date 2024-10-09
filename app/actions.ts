@@ -102,7 +102,7 @@ export const settingsAction = async (prevState, formData: FormData) => {
     });
 
     console.log(user)
-    return redirect("/Dashboard");
+    return redirect("/dashboard");
 }
 
 export const updateAvailability = async (formdata: FormData) => {
@@ -135,7 +135,7 @@ export const updateAvailability = async (formdata: FormData) => {
             }))
         )
 
-        revalidatePath("/Dashboard/availability")
+        revalidatePath("/dashboard/availability")
 
     } catch (error) {
         console.log(error);
@@ -159,7 +159,7 @@ export const createEvent = async (prevState, formData: FormData) => {
             userId: session.user?.id
         },
     });
-    return redirect("/Dashboard")
+    return redirect("/dashboard")
 }
 
 export const createMeeting = async (formData: FormData) => {
@@ -251,7 +251,7 @@ export const cancelMeeting = async (formData: FormData) => {
     });
     console.log(data)
 
-    revalidatePath("/Dashboard/meetings");
+    revalidatePath("/dashboard/meetings");
 }
 
 export const EditEventTypeAction = async (prevState, formData: FormData) => {
@@ -292,7 +292,7 @@ export const EditEventTypeAction = async (prevState, formData: FormData) => {
 
     console.log(data);
 
-    return redirect("/Dashboard");
+    return redirect("/dashboard");
 
 }
 
@@ -308,5 +308,5 @@ export async function DeleteEventTypeAction(formData: FormData) {
 
     console.log(data);
   
-    return redirect("/Dashboard");
+    return redirect("/dashboard");
   }

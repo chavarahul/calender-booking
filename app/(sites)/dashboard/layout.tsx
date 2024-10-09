@@ -68,7 +68,7 @@ const Layout: React.FC<ReactChildren> = async ({ children }) => {
                             <DropdownMenuContent align='end'>
                                 <DropdownMenuLabel>My Account</DropdownMenuLabel>
                                 <DropdownMenuSeparator />
-                                <DropdownMenuItem asChild><Link href={"/Dashboard/settings"}>Settings</Link></DropdownMenuItem>
+                                <DropdownMenuItem asChild><Link href={"/dashboard/settings"}>Settings</Link></DropdownMenuItem>
                                 <DropdownMenuItem asChild>
                                     <form action={async () => {
                                         "use server";

@@ -131,7 +131,7 @@ const NewEvent = () => {
                     </CardContent>
                     <CardFooter className='w-full flex justify-between'>
                         <Button variant={"secondary"} asChild>
-                            <Link href={"/Dashboard"}>
+                            <Link href={"/dashboard"}>
                                 Cancel
                             </Link>
                         </Button>

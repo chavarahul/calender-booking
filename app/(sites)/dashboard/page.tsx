@@ -19,7 +19,7 @@ const Dashboard = async () => {
                         title='You have no Event Types'
                         description='You can create your first event type by clicking the button below'
                         buttontext='Add event type'
-                        href='/Dashboard/new'
+                        href='/dashboard/new'
                     />
                 ) : (
                     <>
@@ -29,7 +29,7 @@ const Dashboard = async () => {
                                 <p className='text-muted-foreground mt-1'>Create and manage your event types right here</p>
                             </div>
                             <Button asChild>
-                                <Link href={"/Dashboard/new"}>
+                                <Link href={"/dashboard/new"}>
                                     Create New Event
                                 </Link>
                             </Button>
@@ -57,7 +57,7 @@ const Dashboard = async () => {
                                                         </DropdownMenuItem>
                                                         <CopyLink meetingUrl={`${process.env.NEXT_PUBLIC_URL}/${data.userName}/${item.url}`} />
                                                         <DropdownMenuItem asChild>
-                                                            <Link href={`/Dashboard/event/${item.id}`}>
+                                                            <Link href={`/dashboard/event/${item.id}`}>
                                                                 <Pen className='mr-2 size-4' />
                                                                 Edit
                                                             </Link>
@@ -65,7 +65,7 @@ const Dashboard = async () => {
                                                     </DropdownMenuGroup>
                                                     <DropdownMenuSeparator />
                                                     <DropdownMenuItem>
-                                                        <Link href={`/Dashboard/event/${item.id}/delete`} className='flex'>
+                                                        <Link href={`/dashboard/event/${item.id}/delete`} className='flex'>
                                                             <Trash className='mr-2 size-4' />
                                                             Delete
                                                         </Link>
@@ -73,7 +73,7 @@ const Dashboard = async () => {
                                                 </DropdownMenuContent>
                                             </DropdownMenu>
                                         </div>
-                                        <Link href={`/Dashboard/event/${item.id}`} className='flex items-center p-5'>
+                                        <Link href={`/dashboard/event/${item.id}`} className='flex items-center p-5'>
                                             <div className="flex-shrink-0">
                                                 <Users2 className='size-5' />
                                             </div>
@@ -90,7 +90,7 @@ const Dashboard = async () => {
                                         </Link>
                                         <div className="bg-muted px-5 py-3 flex justify-between items-center">
                                             <Switch />
-                                            <Link href={`/Dashboard/event/${item.id}`}>
+                                            <Link href={`/dashboard/event/${item.id}`}>
                                                 <Button>
                                                     Edit Event
                                                 </Button>
