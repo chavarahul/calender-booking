@@ -135,7 +135,9 @@ const NewEvent = () => {
                                 Cancel
                             </Link>
                         </Button>
-                        <SubmitButton text='Create Event Type' variant={"default"} className='w-fit' />
+                        <div className="w-fit">
+                            <SubmitButton text='Create Event Type' variant={"default"} />
+                        </div>
                     </CardFooter>
                 </form>
             </Card>
