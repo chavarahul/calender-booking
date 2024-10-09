@@ -6,7 +6,7 @@ import { type AriaButtonProps } from '@react-aria/button';
 import { useDateFormatter } from '@react-aria/i18n';
 import { VisuallyHidden } from '@react-aria/visually-hidden';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
-import { CalendarButton} from './CalenderButton';
+import { CalendarButton } from './CalenderButton';
 
 interface BookingCalenderProps {
     state: CalendarState;
@@ -26,9 +26,12 @@ const CalenderHeader: React.FC<BookingCalenderProps> = ({
         year: "numeric",
         timeZone: state.timeZone,
     });
-    const [monthName, _, year] = monthDateFormatter.formatToParts(
-        state.visibleRange.start.toDate(state.timeZone)
-    ).map((part) => part.value);
+    /* eslint-disable @typescript-eslint/no-unused-vars */
+    const [monthName, _, year] = monthDateFormatter
+        .formatToParts(state.visibleRange.start.toDate(state.timeZone))
+        .map((part) => part.value);
+    /* eslint-enable @typescript-eslint/no-unused-vars */
+
 
     return (
         <section className="flex items-center pb-4">

@@ -30,9 +30,9 @@ const SettingsForm: React.FC<UserProps> = ({
         },
         shouldValidate: "onBlur",
         shouldRevalidate: "onInput",
-        // lastResult
+        lastResult
     });
-    console.log(lastResult)
+    // console.log(lastResult)
     const [currentProfileImage, setCurrentImageProfile] = useState(profileImage);
 
     const handleDeleteImage = () => {

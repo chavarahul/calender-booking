@@ -29,7 +29,7 @@ const calculateAvailableTimeSlots = (date: string, dbAvailability: {
         new Date(),
     );
 
-    const busySlots = nylasData.data[0].timeSlots.map((slot) => ({
+    const busySlots = (nylasData.data[0] as { timeSlots: { startTime: number; endTime: number }[] }).timeSlots.map((slot) => ({
         start: fromUnixTime(slot.startTime),
         end: fromUnixTime(slot.endTime),
     }));
@@ -46,7 +46,7 @@ const calculateAvailableTimeSlots = (date: string, dbAvailability: {
         return (
             isAfter(slot, now) &&
             !busySlots.some(
-                (busy: { start: any; end: any }) =>
+                (busy: { start; end}) =>
                     (!isBefore(slot, busy.start) && isBefore(slot, busy.end)) ||
                     (isAfter(slotEnd, busy.start) && !isAfter(slotEnd, busy.end)) ||
                     (isBefore(slot, busy.start) && isAfter(slotEnd, busy.end))

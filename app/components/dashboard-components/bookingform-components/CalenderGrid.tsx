@@ -12,14 +12,14 @@ const CalenderGrid = ({ state, offset = {}, isDateUnavailable }: {
 }) => {
     const startDate = state.visibleRange.start.add(offset);
     const endDate = endOfMonth(startDate);
-    let { locale } = useLocale();
-    let { gridProps, headerProps, weekDays } = useCalendarGrid({
+    const { locale } = useLocale();
+    const { gridProps, headerProps, weekDays } = useCalendarGrid({
         startDate,
         endDate,
         weekdayStyle: 'short',
     }, state);
 
-    let weeksInMonth = getWeeksInMonth(
+    const weeksInMonth = getWeeksInMonth(
         startDate,
         locale
     );

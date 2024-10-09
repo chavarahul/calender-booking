@@ -163,6 +163,8 @@ export const createEvent = async (prevState, formData: FormData) => {
 }
 
 export const createMeeting = async (formData: FormData) => {
+    type VideoCallProvider = "Zoom Meeting" | "Google Meet" | "Microsoft Teams";
+
     const getUserData = await prisma.user.findUnique({
         where: {
             userName: formData.get('username') as string,
@@ -188,7 +190,7 @@ export const createMeeting = async (formData: FormData) => {
     const fromTime = formData.get('fromTime') as string;
     const eventDate = formData.get('eventDate') as string;
     const meetingLength = Number(formData.get('meetingLength'));
-    const provider = formData.get('provider') as string;
+    const provider = formData.get('provider') as VideoCallProvider;
 
     const startDateTime = new Date(`${eventDate}T${fromTime}:00`);
     const endDateTime = new Date(startDateTime.getTime() + meetingLength * 60000);
@@ -206,7 +208,7 @@ export const createMeeting = async (formData: FormData) => {
                 autocreate: {
 
                 },
-                provider: provider as any,
+                provider: provider,
             },
             participants: [{
                 name: formData.get('name') as string,

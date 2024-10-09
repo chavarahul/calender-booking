@@ -15,8 +15,8 @@ const BookingForm = async ({ params, searchParams }: {
 
     const data = await getUserBookingData(params.eventUrl, params.username);
     const selectedDate = searchParams.date
-    ? new Date(searchParams.date)
-    : new Date();
+        ? new Date(searchParams.date)
+        : new Date();
     const formatedDate = new Intl.DateTimeFormat("en-Us", {
         weekday: 'long',
         day: 'numeric',
@@ -110,7 +110,9 @@ const BookingForm = async ({ params, searchParams }: {
                                         placeholder='example@gmail.com'
                                     />
                                 </div>
-                                <SubmitButton className='mt-5' text='Book Meeting' />
+                                <div className="mt-5">
+                                <SubmitButton  text='Book Meeting' variant={"default"} />
+                                </div>
                             </form>
                         </CardContent>
                     </Card>
@@ -148,7 +150,7 @@ const BookingForm = async ({ params, searchParams }: {
                                 className='h-full w-[1px]'
                             />
                             <RenderCalendar
-                                availability={data.User?.availability as any}
+                                availability={data.User?.availability as { day: string; isActive: boolean; }[]}
                             />
                             <Separator
                                 className='h-full w-[1px]'
