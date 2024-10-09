@@ -21,7 +21,7 @@ const Layout: React.FC<ReactChildren> = async ({ children }) => {
     const data = await getData(session.user?.id as string);
     console.log(data)
     return (
-        <div className='min-h-screen w-full relative grid md:grid-cols-[220px_1fr] lg:grid-cols-[280px_1fr]'>
+        <div className='min-h-screen w-full overflow-x-hidden relative grid md:grid-cols-[220px_1fr] lg:grid-cols-[280px_1fr]'>
             <div className="hidden md:block border-r bg-muted/40">
                 <div className="flex h-full max-h-screen flex-col gap-2">
                     <div className="flex h-14 w-full items-center border-b px-4 lg:h-[60px] lg:px-6">

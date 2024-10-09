@@ -25,7 +25,7 @@ const RenderCalendar: React.FC<iAppProps> = ({ availability }) => {
         if(dateParam){
            setDate(parseDate(dateParam));
         }
-    },[searchParam])
+    },[searchParam]);
 
     const handleDateChange = (date:DateValue) => {
         setDate(date as CalendarDate);

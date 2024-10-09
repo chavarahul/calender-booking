@@ -2,7 +2,7 @@
 import React from 'react';
 import { CalendarProps, useCalendar, useLocale } from 'react-aria';
 import { useCalendarState } from 'react-stately';
-import {DateValue} from '@react-types/calendar'
+import { DateValue } from '@react-types/calendar'
 import { createCalendar } from '@internationalized/date';
 import { CalenderGrid, CalenderHeader } from './bookingform-components';
 
@@ -10,7 +10,7 @@ const BookingCalenderForm = (props: CalendarProps<DateValue> & {
     isDateUnavailable?: (date: DateValue) => boolean
 }) => {
     const { locale } = useLocale();
-    let state = useCalendarState({
+    const state = useCalendarState({
         ...props,
         visibleDuration: {
             months: 1,
@@ -18,14 +18,14 @@ const BookingCalenderForm = (props: CalendarProps<DateValue> & {
         locale,
         createCalendar
     });
-    let {
+    const {
         calendarProps,
         prevButtonProps,
         nextButtonProps,
-        title
     } = useCalendar(props, state);
+
     return (
-        <section {...calendarProps} className="inline-block relative">
+        <section {...calendarProps} className="inline-block relative max-md:my-10">
             <CalenderHeader
                 state={state}
                 calendarProps={calendarProps}

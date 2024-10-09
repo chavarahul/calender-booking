@@ -79,11 +79,11 @@ const TimeTable: React.FC<iAppProps> = async ({ selectedDate, userName, duration
                     {format(selectedDate, "MMM. d")}
                 </span>
             </p>
-            <div className="mt-3 max-h-[350px] overflow-y-auto">
+            <div className="mt-3 max-h-[350px] overflow-y-auto Scroller">
                 {
                     availableSlots.length > 0 ? (
                         availableSlots.map((slot, index: number) => (
-                            <Link href={`?date=${format(selectedDate,"YYYY-MM-DD")}&time=${slot}`} key={index} className=''>
+                            <Link href={`?date=${format(selectedDate, "yyyy-MM-dd")}&time=${slot}`} key={index} className=''>
                                 <Button className='w-full mb-2' variant={"outline"}>
                                     {slot}
                                 </Button>

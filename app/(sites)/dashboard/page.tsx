@@ -33,7 +33,7 @@ const Dashboard = async () => {
                                 </Link>
                             </Button>
                         </section>
-                        <div className="grid gap-5 sm:grid-cols-3 lg:grid-cols-3">
+                        <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
                             {
                                 data.eventType.map((item) => (
                                     <div className="overflow-hidden shadow rounded-lg border relative" key={item.id}>

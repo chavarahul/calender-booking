@@ -159,3 +159,28 @@ export const getTimeData = async (userName: string, selectedDate: Date) => {
         nylasCalendar
     };
 }
+
+export const getMeetings = async(id:string) => {
+    const userData = await prisma.user.findUnique({
+        where:{
+            id,
+        },
+        select:{
+            grantId:true,
+            grantEmail:true,
+        },
+    });
+
+    if(!userData){
+        throw new Error("User not found");
+    }
+
+    const data = await nylas.events.list({
+        identifier:userData.grantId as string,
+        queryParams:{
+            calendarId:userData.grantEmail as string,
+        },
+    });
+
+    return data;
+}
