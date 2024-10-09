@@ -25,7 +25,7 @@ const BookingCalenderForm = (props: CalendarProps<DateValue> & {
         title
     } = useCalendar(props, state);
     return (
-        <section {...calendarProps} className="inline-block">
+        <section {...calendarProps} className="inline-block relative">
             <CalenderHeader
                 state={state}
                 calendarProps={calendarProps}

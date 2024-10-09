@@ -1,5 +1,8 @@
 import prisma from '@/app/lib/db'
 import { notFound, redirect } from 'next/navigation'
+import { format } from 'date-fns';
+import { Prisma } from '@prisma/client';
+import { nylas } from './nylas';
 
 export const getData = async (userId: string) => {
     const data = await prisma.user.findUnique({
@@ -111,3 +114,48 @@ export const getUserBookingData = async (eventUrl: string, userName: string) => 
     }
     return data;
 };
+
+export const getTimeData = async (userName: string, selectedDate: Date) => {
+
+    const currentDate = format(selectedDate, "EEEE");
+
+    const startOfDay = new Date(selectedDate);
+    startOfDay.setHours(0, 0, 0, 0);
+
+    const endOfDay = new Date(selectedDate);
+    endOfDay.setHours(23, 59, 59, 999);
+
+    const data = await prisma.availability.findFirst({
+        where: {
+            day: currentDate as Prisma.EnumDayFilter,
+            User: {
+                userName
+            }
+        },
+        select: {
+            fromTime: true,
+            tillTime: true,
+            id: true,
+            User: {
+                select: {
+                    grantEmail: true,
+                    grantId: true
+                },
+            },
+        },
+    });
+
+    const nylasCalendar = await nylas.calendars.getFreeBusy({
+        identifier: data?.User?.grantId as string,
+        requestBody: {
+            startTime: Math.floor(startOfDay.getTime() / 1000),
+            endTime: Math.floor(endOfDay.getTime() / 1000),
+            emails: [data?.User?.grantEmail as string]
+        }
+    });
+
+    return {
+        data,
+        nylasCalendar
+    };
+}
