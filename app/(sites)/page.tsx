@@ -6,7 +6,7 @@ import { Companies, Cta, Features, Hero, Testimonial } from "../components/landi
 export default async function Home() {
   const session = await auth();
   if (session?.user) {
-    return redirect("/Dashboard")
+    return redirect("/dashboard")
   }
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 Scroller">
