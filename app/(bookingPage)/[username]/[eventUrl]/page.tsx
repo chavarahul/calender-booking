@@ -1,10 +1,10 @@
+import React from 'react'
 import { Card, Separator } from '@/app/components/ui'
 import { CardContent } from '@/app/components/ui/card'
 import { getUserBookingData } from '@/app/lib/function'
 import { requireUser } from '@/app/lib/hooks'
 import { CalendarX2, Clock, VideoIcon } from 'lucide-react'
-import React from 'react'
-
+import BookingCalenderForm from '@/app/components/dashboard-components/BookingForm'
 
 const BookingForm = async ({ params }: {
     params: { username: string; eventUrl: string }
@@ -41,7 +41,7 @@ const BookingForm = async ({ params }: {
                         </div>
                     </div>
                     <Separator orientation='vertical' className='h-full w-[1px]' />
-                    
+                    <BookingCalenderForm />
                 </CardContent>
             </Card>
         </section>
