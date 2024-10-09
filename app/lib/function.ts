@@ -160,27 +160,49 @@ export const getTimeData = async (userName: string, selectedDate: Date) => {
     };
 }
 
-export const getMeetings = async(id:string) => {
+export const getMeetings = async (id: string) => {
     const userData = await prisma.user.findUnique({
-        where:{
+        where: {
             id,
         },
-        select:{
-            grantId:true,
-            grantEmail:true,
+        select: {
+            grantId: true,
+            grantEmail: true,
         },
     });
 
-    if(!userData){
+    if (!userData) {
         throw new Error("User not found");
     }
 
     const data = await nylas.events.list({
-        identifier:userData.grantId as string,
-        queryParams:{
-            calendarId:userData.grantEmail as string,
+        identifier: userData.grantId as string,
+        queryParams: {
+            calendarId: userData.grantEmail as string,
         },
     });
+
+    return data;
+}
+
+export const getEditEventData = async(eventId: string) => {
+    const data = await prisma.eventType.findUnique({
+        where: {
+            id: eventId,
+        },
+        select: {
+            title: true,
+            description: true,
+            url: true,
+            id: true,
+            duration: true,
+            videoCallsSoftware: true
+        },
+    });
+
+    if(!data){
+        return notFound();
+    }
 
     return data;
 }

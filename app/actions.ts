@@ -1,6 +1,6 @@
 "use server";
 
-import { eventTypeSchema, onboardingSchemaValidation, settingsSchema } from "@/lib/zodSchema";
+import { eventTypeSchema, eventTypeServerSchema, onboardingSchemaValidation, settingsSchema } from "@/lib/zodSchema";
 import prisma from "./lib/db";
 import { requireUser } from "./lib/hooks";
 import { parseWithZod } from '@conform-to/zod'
@@ -223,31 +223,88 @@ export const createMeeting = async (formData: FormData) => {
     return redirect('/success');
 }
 
-export const cancelMeeting = async(formData:FormData) => {
+export const cancelMeeting = async (formData: FormData) => {
     const session = await requireUser();
 
     const userData = await prisma.user.findUnique({
-        where:{
-            id:session?.user?.id as string
+        where: {
+            id: session?.user?.id as string
         },
-        select:{
-            grantId:true,
-            grantEmail:true,
+        select: {
+            grantId: true,
+            grantEmail: true,
         },
     });
 
-    if(!userData){
+    if (!userData) {
         return notFound();
     }
 
     const data = await nylas.events.destroy({
         eventId: formData.get('eventId') as string,
-        identifier:userData.grantId as string,
-        queryParams:{
+        identifier: userData.grantId as string,
+        queryParams: {
             calendarId: userData.grantEmail as string
         },
     });
     console.log(data)
-   
-    revalidatePath("/Dashboard/meetings")
+
+    revalidatePath("/Dashboard/meetings");
 }
+
+export const EditEventTypeAction = async (prevState, formData: FormData) => {
+    const session = await requireUser();
+
+    const submission = await parseWithZod(formData, {
+        schema: eventTypeServerSchema({
+            async isUrlUnique() {
+                const data = await prisma.eventType.findFirst({
+                    where: {
+                        userId: session?.user?.id as string,
+                        url: formData.get('url') as string,
+                    }
+                });
+                return !data;
+            }
+        }),
+        async: true,
+    });
+
+    if (submission.status !== "success") {
+        return submission.reply();
+    }
+
+    const data = await prisma.eventType.update({
+        where: {
+            id: formData.get("id") as string,
+            userId: session.user?.id as string,
+        },
+        data: {
+            title: submission.value.title,
+            duration: submission.value.duration,
+            url: submission.value.url,
+            description: submission.value.description,
+            videoCallsSoftware: submission.value.videoCallSoftware,
+        },
+    });
+
+    console.log(data);
+
+    return redirect("/Dashboard");
+
+}
+
+export async function DeleteEventTypeAction(formData: FormData) {
+    const session = await requireUser();
+  
+    const data = await prisma.eventType.delete({
+      where: {
+        id: formData.get("id") as string,
+        userId: session.user?.id as string,
+      },
+    });
+
+    console.log(data);
+  
+    return redirect("/Dashboard");
+  }

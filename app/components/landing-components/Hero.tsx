@@ -17,7 +17,7 @@ const Hero = () => {
                    <span className="block text-primary">super easy!</span>
                 </h1>
                 <p className='max-w-2xl mx-auto mt-4 lg:text-lg text-muted-foreground'>
-                Scheduling a meeting can be a pain. But we at CalMarshal make it
+                Scheduling a meeting can be a pain. But we at CalenNexus make it
                 easy for your clients to schedule meetings with you.
                 </p>
                 <div className="mt-5 mb-12">

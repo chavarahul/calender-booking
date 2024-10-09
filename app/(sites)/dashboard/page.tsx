@@ -1,9 +1,10 @@
+import CopyLink from '@/app/components/dashboard-components/CopyLink';
 import EmptyState from '@/app/components/dashboard-components/EmptyState';
 import { Button, DropdownMenu, Switch } from '@/app/components/ui';
 import { DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from '@/app/components/ui/dropdown-menu';
 import { getEventData } from '@/app/lib/function';
 import { requireUser } from '@/app/lib/hooks'
-import { ExternalLink, Link2, Pen, Settings, Trash, Users2 } from 'lucide-react';
+import { ExternalLink, Pen, Settings, Trash, Users2 } from 'lucide-react';
 import Link from 'next/link';
 import React from 'react'
 
@@ -54,24 +55,25 @@ const Dashboard = async () => {
                                                                 Preview
                                                             </Link>
                                                         </DropdownMenuItem>
-                                                        <DropdownMenuItem>
-                                                            <Link2 className='mr-2 size-4' />
-                                                            Copy
-                                                        </DropdownMenuItem>
-                                                        <DropdownMenuItem>
-                                                            <Pen className='mr-2 size-4' />
-                                                            Edit
+                                                        <CopyLink meetingUrl={`${process.env.NEXT_PUBLIC_URL}/${data.userName}/${item.url}`} />
+                                                        <DropdownMenuItem asChild>
+                                                            <Link href={`/Dashboard/event/${item.id}`}>
+                                                                <Pen className='mr-2 size-4' />
+                                                                Edit
+                                                            </Link>
                                                         </DropdownMenuItem>
                                                     </DropdownMenuGroup>
                                                     <DropdownMenuSeparator />
                                                     <DropdownMenuItem>
-                                                        <Trash className='mr-2 size-4' />
-                                                        Delete
+                                                        <Link href={`/Dashboard/event/${item.id}/delete`} className='flex'>
+                                                            <Trash className='mr-2 size-4' />
+                                                            Delete
+                                                        </Link>
                                                     </DropdownMenuItem>
                                                 </DropdownMenuContent>
                                             </DropdownMenu>
                                         </div>
-                                        <Link href={"/"} className='flex items-center p-5'>
+                                        <Link href={`/Dashboard/event/${item.id}`} className='flex items-center p-5'>
                                             <div className="flex-shrink-0">
                                                 <Users2 className='size-5' />
                                             </div>
@@ -88,9 +90,11 @@ const Dashboard = async () => {
                                         </Link>
                                         <div className="bg-muted px-5 py-3 flex justify-between items-center">
                                             <Switch />
-                                            <Button>
-                                                Edit Event
-                                            </Button>
+                                            <Link href={`/Dashboard/event/${item.id}`}>
+                                                <Button>
+                                                    Edit Event
+                                                </Button>
+                                            </Link>
                                         </div>
                                     </div>
                                 ))
