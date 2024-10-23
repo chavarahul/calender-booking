@@ -25,8 +25,8 @@ const Layout: React.FC<ReactChildren> = async ({ children }) => {
             <div className="hidden md:block border-r bg-muted/40">
                 <div className="flex h-full max-h-screen flex-col gap-2">
                     <div className="flex h-14 w-full items-center border-b px-4 lg:h-[60px] lg:px-6">
-                        <Link href="/" className='flex items-center gap-2'>
-                            <Image src={Logo} alt='Logo' className='size-7' />
+                        <Link href="/" className='flex items-center gap-2' prefetch={true}>
+                            <Image src={Logo} alt='Logo' className='size-7' loading='lazy' />
                             <p className='text-xl font-bold'>Calen<span className='text-primary'>Nexus</span></p>
                         </Link>
                     </div>

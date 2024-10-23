@@ -35,7 +35,7 @@ const NewEvent = () => {
                     <CardTitle>Add new appointment type</CardTitle>
                     <CardDescription>Create new appoinment type that allows people to book you!</CardDescription>
                 </CardHeader>
-                <form id={form.id} onSubmit={form.onSubmit} action={action} noValidate>
+                <form id={form.id} onSubmit={form.onSubmit} action={action} noValidate method='post'>
                     <CardContent>
                         <div className="flex flex-col gap-y-2">
                             <Label>Title</Label>

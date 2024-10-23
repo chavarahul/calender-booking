@@ -6,6 +6,7 @@ export const GET = async () => {
         clientId: nylasConfig.clientId,
         redirectUri: nylasConfig.redirectUri,
     });
+    
     console.log("Auth URL: ", authUrl);
     return redirect(authUrl);
 }

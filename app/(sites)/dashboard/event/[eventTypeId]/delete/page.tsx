@@ -24,7 +24,7 @@ const DeleteEventType = ({ params }: { params: { eventTypeId: string } }) => {
           <Button asChild variant="secondary">
             <Link href="/dashboard">Cancel</Link>
           </Button>
-          <form action={DeleteEventTypeAction}>
+          <form action={DeleteEventTypeAction} method="post">
             <input type="hidden" name="id" value={params.eventTypeId} />
             <Button variant="destructive">Delete</Button>
           </form>
